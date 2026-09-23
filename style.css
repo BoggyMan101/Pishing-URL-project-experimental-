@@ -1,0 +1,656 @@
+/* Sets the default font, colors, spacing, and page background. */
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	line-height: 1.5;
+	color: #ffffff;
+	background-color: #000;
+}
+
+/* Smoothly scrolls to sections when an internal link is clicked. */
+html {
+	scroll-behavior: smooth;
+}
+
+.overall-container {
+	background: linear-gradient(135deg, #0d0221 0%, #1a0b3d 40%, #ff00c8 100%);
+	border-radius: 30px;
+	padding: 10px 20px;
+	margin: 3% 3%;
+	position: relative;
+	isolation: isolate;
+	/* keeps the pseudo-element z-index contained to this element */
+}
+
+.overall-container::after,
+.overall-container::before {
+	--angle: 0deg;
+	content: '';
+	position: absolute;
+	inset: -3px;
+	/* sizes the ring exactly around the container edge */
+	background: conic-gradient(from var(--angle), red, yellow, green, blue, red);
+	border-radius: inherit;
+	z-index: -1;
+	padding: 3px;
+	/* border thickness */
+	box-sizing: border-box;
+
+	/* Masks out the inside, leaving only a thin rotating ring visible */
+	-webkit-mask:
+		linear-gradient(#fff 0 0) content-box,
+		linear-gradient(#fff 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+
+	animation: 3s spin linear infinite;
+	pointer-events: none;
+}
+
+.overall-container::before {
+	filter: blur(1.5rem);
+	opacity: 0.5;
+}
+
+
+@property --angle {
+	syntax: "<angle>";
+	initial-value: 0deg;
+	inherits: false;
+}
+
+@keyframes spin {
+	from {
+		--angle: 0deg;
+	}
+
+	to {
+		--angle: 360deg;
+	}
+}
+
+.container-top {
+	/* Adds horizontal spacing around the main scan content. */
+	padding: 10px 5%;
+	/* Keeps the navigation visible while the page scrolls. */
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.logo {
+	background-color: #f4d7d7;
+	flex: 0 0 auto;
+	width: auto;
+	min-width: 100px;
+	max-width: 160px;
+	padding: 6px 18px;
+	border-radius: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.logo p {
+	margin: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Wraps .navbar to create its spinning gradient ring, without masks.
+   The wrapper's own background IS the gradient; its padding is the
+   border thickness, and .navbar's solid background covers the rest. */
+.navbar-wrap {
+	position: relative;
+	border-radius: 53px;
+	/* .navbar's 50px + the 3px ring thickness */
+	padding: 3px;
+	max-width: 1103px;
+	width: 80%;
+	box-sizing: border-box;
+	background: conic-gradient(from 0deg, #ff00c8, #00fff9, #ff00c8);
+	background-size: 200% 200%;
+	animation: spinBorder 4s linear infinite;
+}
+
+@keyframes spinBorder {
+	to {
+		background-position: 100% 0%;
+	}
+}
+
+/* Keeps the navigation visible near the top while the page scrolls. */
+.navbar {
+	/* Keeps the navigation visible while the page is scrolled. */
+	position: relative;
+	background-color: rgb(101, 10, 186);
+	border-radius: 50px;
+	padding: 8px 20px;
+	width: 100%;
+	box-sizing: border-box;
+	/* controls navbar's own size */
+}
+
+
+/* Hamburger button: hidden on wide screens, shown via the media query below. */
+.nav-toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	flex-shrink: 0;
+}
+
+.nav-toggle span {
+	display: block;
+	width: 100%;
+	height: 3px;
+	border-radius: 2px;
+	background-color: #ffffff;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Turns the three bars into an X when the menu is open. */
+.nav-toggle.open span:nth-child(1) {
+	transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+	opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+	transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Places the Home icon on the left and the other links on the right. */
+nav {
+	/* Aligns the Home icon, scan field, and navigation links in one row. */
+	display: flex;
+	width: 100%;
+	/* makes nav take up the entire navbar's inner space */
+	align-items: center;
+	justify-content: space-between;
+	/* pushes scan bar / home / links apart */
+}
+
+#nav-Links {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	gap: 15px;
+}
+
+#nav-Links li {
+	list-style: none;
+}
+
+.scan-item {
+	flex: 1;
+	/* grows to fill leftover space, pushing everything after it to the right */
+}
+
+#scan-bar-1 {
+	width: 100%;
+	border-radius: 20px;
+	box-sizing: border-box;
+	padding: 6px 10px;
+	background-color: #1a0b3d;
+}
+
+/* Removes the browser's default list spacing and lays items in a row. */
+nav ul {
+	/* Displays each navigation list horizontally without default list spacing. */
+	display: flex;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li {
+	display: inline-block;
+	list-style: none;
+	position: relative;
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: #ffff;
+	font-size: 12px;
+	font-weight: 500;
+	margin: 0 12px;
+	/* Adds horizontal space between navigation links. */
+	padding: 4px 0;
+	display: inline-block;
+}
+
+/* Creates the green underline used for the link hover effect. */
+nav ul li a::after {
+	content: '';
+	width: 0;
+	height: 3px;
+	background: #ff2fc8;
+	position: absolute;
+	left: 0;
+	bottom: -6px;
+}
+
+/* Expands the underline when a user hovers over a navigation link. */
+nav ul li a:hover::after {
+	/* Reveals the green underline when a navigation link is hovered. */
+	width: 100%;
+	transition: 0.5s;
+}
+
+#header {
+	/* Centers the page title and subtitle near the top of the page. */
+	width: 80%;
+	max-width: 900px;
+	margin: 10px auto;
+	font-size: 15px;
+	column-gap: 15px;
+	padding: 8px 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow-wrap: break-word;
+}
+
+.header-container {
+	padding: 8px 20px;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.header-container>* {
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	text-align: center;
+}
+
+.scan-icon {
+	/* Creates the bordered area that contains the link icon. */
+	height: clamp(50px, 12vw, 80px);
+	width: clamp(50px, 12vw, 80px);
+	margin: 10px auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	background-attachment: fixed;
+	background-size: cover;
+	object-fit: contain;
+	overflow: hidden;
+
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	/* keeps the image's aspect ratio, avoids stretching */
+}
+
+/* Scales the scan symbol to fit inside its icon container. */
+.scan-icon img {
+	width: clamp(2.5rem, 8vw, 3.75rem);
+	height: clamp(2.5rem, 8vw, 3.75rem);
+}
+
+.scan-bar-2-container {
+	padding: 8px 20px;
+	width: 80%;
+	max-width: 650px;
+	margin: 0px auto;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: start;
+	align-content: start;
+	backdrop-filter: blur(0px) saturate(178%);
+	-webkit-backdrop-filter: blur(0px) saturate(178%);
+	border: 1px solid rgba(255, 255, 255, 0.62);
+	border-radius: 27px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.scan-bar-2 {
+	width: 90%;
+	border-radius: 10px;
+	justify-content: start;
+	display: inline-block;
+	flex-direction: row;
+}
+
+#scan-bar-2 {
+	width: 100%;
+	border-radius: 20px;
+	box-sizing: border-box;
+	flex: 1;
+	background-color: #1a0b3d;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+#btn {
+	/* Gives the scan button rounded corners and a visible border. */
+	border-radius: 10px;
+	margin: 0px auto;
+	border-style: double;
+}
+
+.notice {
+	overflow-wrap: break-word;
+	word-break: break-word;
+	text-align: center;
+	padding: 0 10px;
+	font-size: 0.85rem;
+}
+
+.learnMore {
+	text-decoration: none;
+	color: white;
+}
+
+/* Styles the area that will display scan results. */
+.results-container {
+	/* Creates the reserved panel where scan results can be displayed. */
+	backdrop-filter: blur(0px) saturate(178%);
+	-webkit-backdrop-filter: blur(0px) saturate(178%);
+	border: 1px solid rgba(255, 255, 255, 0.62);
+	border-radius: 27px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+	width: 80%;
+	max-width: 1100px;
+	height: 400px;
+	margin: 0px auto;
+	margin-bottom: 60px;
+}
+
+.carousel-container {
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	flex-direction: column;
+	display: flex;
+	width: 100%;
+	max-width: 1300px;
+	margin: 0 auto;
+	padding: 0px 8px;
+	box-sizing: border-box;
+}
+
+.nav-buttons-container {
+	width: 40%;
+	max-width: 480px;
+	margin: 0px auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	/* optional, matches your other rounded elements */
+}
+
+.nav-buttons {
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	display: flex;
+	gap: 18px;
+	font-size: 12px;
+}
+
+.nav-buttons a {
+	text-decoration: none;
+	color: #ffff;
+	font-size: 12px;
+	font-weight: 500;
+	display: inline-block;
+	position: relative
+}
+
+.nav-buttons a::after {
+	content: '';
+	width: 0;
+	height: 3px;
+	background: #ff2fc8;
+	position: absolute;
+	left: 0;
+	bottom: -6px;
+}
+
+.nav-buttons a:hover::after {
+	width: 100%;
+	transition: 0.5s;
+}
+
+.nav-buttons a.active::after {
+	width: 100%;
+	transition: 0.5s;
+}
+
+.carousel {
+	margin-top: 0;
+	width: 100%;
+	/* Places the cards in a single horizontally scrollable row. */
+	overflow-x: auto;
+	display: flex;
+	margin: 3em auto 0.5em;
+	gap: 1em;
+	/* Stops scrolling at the center of each card. */
+	scroll-snap-type: x mandatory;
+	/* forces scrolling to stop at a snap point */
+	scroll-behavior: smooth;
+}
+
+.carousel::-webkit-scrollbar {
+	display: none;
+}
+
+.card {
+	flex: 0 0 70%;
+	/* scales with the carousel's width instead of a fixed size */
+	max-width: 60em;
+	/* caps it so it doesn't get too big on large screens */
+	height: 25em;
+	backdrop-filter: blur(0px) saturate(178%);
+	-webkit-backdrop-filter: blur(0px) saturate(178%);
+	border: 1px solid rgba(255, 255, 255, 0.62);
+	border-radius: 27px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+	padding: 1em;
+	text-align: center;
+	scroll-snap-align: center;
+	/* tells the browser where each card "locks" */
+}
+
+
+.footer {
+	height: 100px;
+}
+
+.footer p {
+	margin: 0;
+	padding: 10px 5%;
+	color: #1a1a1a;
+}
+
+/* ===========================================================
+   Responsive breakpoints
+   =========================================================== */
+
+/* Tablet and small laptop screens */
+@media (max-width: 900px) {
+	.navbar-wrap {
+		width: 92%;
+	}
+
+	#header,
+	.results-container,
+	.scan-bar-2-container {
+		width: 92%;
+	}
+
+	.nav-buttons-container {
+		width: 70%;
+	}
+
+	.card {
+		flex: 0 0 80%;
+	}
+}
+
+/* Phones and narrow tablets: collapse the nav into a hamburger menu */
+@media (max-width: 700px) {
+	.navbar-wrap {
+		width: 96%;
+	}
+
+	.navbar {
+		min-height: 44px;
+		padding: 8px 14px;
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	nav {
+		flex-basis: 100%;
+	}
+
+	.nav-toggle {
+		display: flex;
+		position: absolute;
+		right: 14px;
+		top: 8px;
+	}
+
+	/* The link list becomes a full-width dropdown, hidden until toggled. */
+	#nav-Links {
+		flex-basis: 100%;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 10px;
+		max-height: 0;
+		overflow: hidden;
+		margin-top: 0;
+		transition: max-height 0.3s ease, margin-top 0.3s ease;
+	}
+
+	#nav-Links.open {
+		max-height: 400px;
+		margin-top: 40px;
+	}
+
+	#nav-Links li {
+		width: 100%;
+	}
+
+	#nav-Links li a {
+		margin: 0;
+		display: block;
+		padding: 8px 4px;
+	}
+
+	.scan-item {
+		flex: 0 0 100%;
+	}
+
+	.title h1 {
+		font-size: 1.4rem;
+		text-align: center;
+	}
+
+	.header-container {
+		padding: 8px 10px;
+	}
+
+	.scan-bar-2-container {
+		width: 96%;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 10px;
+	}
+
+	.scan-bar-2 {
+		width: 100%;
+	}
+
+	#btn {
+		width: 100%;
+		padding: 8px 0;
+	}
+
+	.results-container {
+		width: 96%;
+		height: 260px;
+	}
+
+	.nav-buttons-container {
+		width: 92%;
+	}
+
+	.nav-buttons {
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.card {
+		flex: 0 0 88%;
+		height: 20em;
+	}
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+	.logo {
+		min-width: 80px;
+		padding: 6px 12px;
+		font-size: 0.85rem;
+	}
+
+	.title h1 {
+		font-size: 1.15rem;
+	}
+
+	.header-container p {
+		font-size: 0.9rem;
+	}
+
+	.card {
+		flex: 0 0 92%;
+		height: 18em;
+	}
+
+	.nav-buttons a {
+		font-size: 11px;
+	}
+}

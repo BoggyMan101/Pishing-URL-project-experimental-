@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+
+    <!-- Loads the page layout and visual styles. -->
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/96df742a12.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="overall-container">
+      <!-----navigation bar----->
+      <!-- Provides site navigation and the top URL input. -->
+      <div class="container-top">
+        <div class="logo">
+          <!--insert logo here-->
+          <p>insert logo</p>
+        </div>
+        <!-- Wrapper that draws the spinning gradient ring around .navbar. -->
+        <div class="navbar-wrap">
+          <div class="navbar">
+            <button
+              id="nav-toggle"
+              class="nav-toggle"
+              type="button"
+              aria-label="Toggle menu"
+              aria-expanded="false"
+              aria-controls="nav-Links"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <nav>
+              <ul id="nav-Links">
+                <!--navigates through the page content-->
+                <li class="scan-item">
+                  <input id="scan-bar-1" type="text" placeholder="Scan URL's//" />
+                </li>
+                <li>
+                  <a id="home-icon" href="#home">
+                    <i class="fa-solid fa-house"></i>
+                  </a>
+                </li>
+                <li><a href="#slide-1">Extension</a></li>
+                <li><a href="#slide-2">About Us</a></li>
+                <li><a href="#slide-3">Services</a></li>
+                <li><a href="#contact">Contacts</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main scan area where users submit a URL. -->
+      <header id="header">
+        <div id="home">
+          <div class="header-container">
+            <div class="title">
+              <h1>TITLE OF WEBSITE</h1>
+              <p>Scan Suspicious/Possible Phishing URL's</p>
+            </div>
+            <div class="scan-icon">
+              <img src="scan.png" />
+            </div>
+            <div class="scan-bar-2-container">
+              <div class="scan-bar-2">
+                <input id="scan-bar-2" type="text" placeholder="Scan URL's//" />
+              </div>
+              <!-- This ID is used by index.js to handle the scan action. -->
+              <button id="btn" type="button">Scan</button>
+            </div>
+
+            <!-- Change href to the Terms and service  and privacy notice-->
+            <p class="notice">
+              By submitting the information above, you agree to our Terms of
+              Service and Privacy Notice. Your submitted URL may be shared with
+              the security community. Please do not include any personal
+              information in your submission. We are not responsible for the
+              content you submit.
+              <a
+                id="learnMore"
+                class="learnMore"
+                href="https://youtu.be/oyKsqz99_is"
+                >Learn more</a
+              >.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Displays the result returned by the scan process. -->
+      <div id="results- section">
+        <div class="results-container">
+          <p>result are shown here</p>
+        </div>
+      </div>
+
+      <!-- Shows the page's feature sections as horizontally scrollable cards. -->
+      <div class="carousel-container">
+        <div class="carousel" id="carousel">
+          <div id="slide-1" class="card"><p>extension details</p></div>
+          <div id="slide-2" class="card"><p>about us detail</p></div>
+          <div id="slide-3" class="card">
+            <p>
+              services
+              <details></details>
+            </p>
+          </div>
+        </div>
+        <div class="nav-buttons-container">
+          <div class="nav-buttons">
+            <a href="#slide-1" data-slide="slide-1" class="active">Extension</a>
+            <a href="#slide-2" data-slide="slide-2">About US</a>
+            <a href="#slide-3" data-slide="slide-3">Services</a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>asdad</p>
+      </footer>
+
+      <!-- Loads the interaction logic after the page elements exist. -->
+      <script src="index.js"></script>
+    </div>
+  </body>
+</html>
